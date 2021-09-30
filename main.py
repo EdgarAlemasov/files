@@ -1,33 +1,25 @@
-text = '''Омлет
-3
-Яйцо | 2 | шт
-Молоко | 100 | мл
-Помидор | 2 | шт
+from pprint import pprint
 
-Утка по-пекински
-4
-Утка | 1 | шт
-Вода | 2 | л
-Мед | 3 | ст.л
-Соевый соус | 60 | мл
 
-Запеченный картофель
-3
-Картофель | 1 | кг
-Чеснок | 3 | зубч
-Сыр гауда | 100 | г
+def data_file(file_name):
+    cook_book = {}
+    with open(file_name) as file:
+        for line in file:
+            dish_name = line.strip()
+            counter = int(file.readline())
 
-Фахитос
-5
-Говядина | 500 | г
-Перец сладкий | 1 | шт
-Лаваш | 2 | шт
-Винный уксус | 1 | ст.л
-Помидор | 2 | шт
-'''
+            temp_list = []
+            for item in range(counter):
+                ingredient_name, quantity, measure = file.readline().split('|')
+                temp_list.append(
+                    {'ingredient_name': ingredient_name, 'quantity': quantity, 'measure': measure}
+                )
 
-with open('recipe_list.txt', 'w') as file:
-    file.write(text)
+            cook_book[dish_name] = temp_list
 
-file = open('recipe_list.txt')
-print(file.read())
+            file.readline()
+
+    return cook_book
+
+
+pprint(data_file('recipe_list.txt'))
