@@ -1,7 +1,7 @@
 from pprint import pprint
 
 cook_book = {}
-with open('recipe_list.txt') as file:
+with open('recipe_list.txt', encoding='utf-8') as file:
     for line in file:
         dish_name = line.strip()
         counter = int(file.readline())
@@ -26,6 +26,13 @@ def get_shop_list_by_dishes(dish, person_count):
           if name in dishes:
             count = info['quantity'] * person_count
             info_key = f"{info['ingredient_name']}"
+            if info['ingredient_name'] in shop_list:
+                count += count
+                info_values = f"quantity : {count}, measure : {info['measure']}"
+                x = {info_key: {info_values}}
+                shop_list.update(x)
+            else:
+                pass
             info_values = f"quantity : {count}, measure : {info['measure']}"
             x = {info_key: {info_values}}
             shop_list.update(x)
@@ -34,4 +41,4 @@ def get_shop_list_by_dishes(dish, person_count):
     pprint(shop_list)
 
 
-get_shop_list_by_dishes(['Фахитос', 'Омлет'], 3)
+get_shop_list_by_dishes(['Омлет', 'Омлет'], 1)
